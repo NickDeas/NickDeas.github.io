@@ -1,5 +1,4 @@
-# NickDeas.github.io
-Personal Site
+# Personal Site
 
 # TODO
 ## Resume
