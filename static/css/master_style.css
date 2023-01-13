@@ -1,0 +1,189 @@
+
+/* 
+Red:   0xD64933
+Black: 0x2B303A
+Pink:  0xE5D4CE
+Blue:  0x90F1EF
+Blue2: 0x4DA1A9
+*/
+
+html, body {
+	width: 100%;
+	margin: 0px;
+	padding: 0px;
+
+	font-family: "Lucida Sans";
+
+	color: #2B303A;
+
+}
+
+#header-box {
+/*	align-content: center;*/
+
+	position: fixed;
+	left: 0px;
+	top: 0px;
+
+	padding-left: 5%;
+	padding-right: 5%;
+
+	height: 10vh;
+	width: 90vw;
+
+	background-color: #D64933;
+	box-shadow: 0px 5px 5px #22222266;
+
+	z-index: 1;
+}
+
+#header-title {
+
+	width: 45vw;
+	height: 10vh;
+	line-height: 10vh;
+
+	position: fixed;
+	left: 0vw;
+
+	padding: auto;
+	padding-left: 2vw;
+	margin: auto;
+
+	font-size: 8vh;
+
+	color: white; /*#2B303A;*/
+
+	font-weight: bold;
+}
+
+#nav-bar {
+	width: 48vw;
+	height: 10vh;
+
+	position: fixed;
+	right: 0vw;
+	top: 0vw;
+
+	display: flex;
+	flex-direction: row;
+	justify-content: space-between;
+	align-items: center;
+
+	margin-left: 5vw;
+	margin-right: 0vw;
+
+}
+
+.nav-item {
+	flex: 1;
+
+	font-size: 2vmax;
+	color: white;
+
+	text-align: center;
+
+	transition: 0.5s;
+
+}
+
+.nav-item:hover {
+	font-size: 2.5vmax;
+
+	color: #E5D4CE;
+
+}
+
+#body-box {
+/*	margin-top: 10vh;*/
+	padding-top: 5vh;
+	padding-left: 10vw;
+	padding-right: 10vw;
+
+	min-height: 95vh;
+	width: 80vw;
+
+	background-color: #E5D4CE;
+}
+
+#about-sec {
+	width: 80vw;
+	min-height: 50vh;
+
+	display: flex;
+
+	flex-direction: row;
+	justify-content: center;
+	align-items: center;
+	align-content: center;
+
+}
+
+#about-sec .img-box {
+	flex: 1;
+
+	object-fit: contain;
+
+	padding-left: 3vw;
+	padding-right: 3vw;
+
+	margin-top: 0px;
+	margin-bottom: 0px;
+}
+
+.img-box img {
+	max-height: 100%;
+	max-width: 100%;
+
+	width: auto;
+	height: auto;
+
+	position: relative;
+
+	vertical-align: middle;
+}
+
+#about-sec .text-box {
+
+	flex: 3;
+
+	display: flex;
+	flex-direction: column;
+	justify-content: center;
+}
+
+.text-box p {
+	background-color: #FFFFFF;
+	box-shadow: 5px 5px 5px #22222244;
+	border-radius: 5vw;
+
+	padding: 3vw;
+
+	color: #2B303A;
+}
+
+.text-header {
+	font-size: 5vh;
+	width: 100%;
+	text-align: center;
+
+	font-weight: bold;
+}
+
+.pub-item {
+	padding: 2vh;
+}
+
+.pub-item h2 {
+	font-size: 1.5vw;
+}
+
+@media (max-width: 800px) {
+	#about-sec {
+		flex-direction: column;
+	}
+
+	#about-sec .img-box img {
+		max-height: 50vw;
+	}
+}
