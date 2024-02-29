@@ -1,0 +1,197 @@
+
+/*
+	Dark Blue: #012169
+	Light Blue: #6CACE4
+
+*/
+
+html, body {
+	width: 100%;
+	margin: 0px;
+	padding: 0px;
+
+	font-family: "Lucida Sans";
+
+	color: #2B303A;
+
+	scroll-behavior: smooth;
+
+}
+
+#header {
+	width: 98vw;
+	height: 7vh;
+
+	background-color: #012169;
+
+	display: flex;
+	flex-direction: horizontal;
+	justify-content: center;
+/*	align-items: center;*/
+
+	padding: 1vw;
+
+	position: fixed;
+	top: 0px;
+
+	z-index: 10;
+
+	box-shadow: 0px 5px 10px rgba(100, 100, 100, 100);
+
+}
+
+#header h1 {
+	flex: 3;
+
+	color: white;
+	font-size: 2.5vw;
+
+	align-self: center;
+}
+
+#header .header-spacer {
+	flex-grow: 2;
+}
+
+#header .nav-item {
+	flex: 1;
+
+	position: relative;
+
+	margin-bottom: 0px;
+	margin-top: auto;
+	margin-left: 1vw;
+	margin-right: 1vw;
+
+	text-align: center;
+}
+
+.nav-item a {
+
+	text-align: center;
+
+	text-decoration: none;
+	color: white;
+
+	font-size: 2vh;
+
+	transition: .25s;
+}
+
+.nav-item a:hover {
+	color: #6CACE4;
+	font-size: 2.5vh;
+}
+
+#main {
+	position: absolute;
+	top: 9vh;
+
+	width: 100%;
+	margin: 0px;
+	padding: 0px;
+
+	padding-top: 2vh;
+
+/*	border: 2px solid green;*/
+}
+
+/* About */
+
+.content-box {
+	width: 76vw;
+
+	margin-left: 10vw;
+	margin-right: 10vw;
+	padding: 2vw;
+
+
+/*	outline: 2px solid green;*/
+}
+
+#about-box {
+	display: flex;
+
+	width: 66vw;
+	margin-left: 15vw;
+	margin-right: 15vw;
+
+	border-bottom: 5px solid #6CACE4;
+}
+
+#about-box .img-box {
+	flex: 1;
+}
+
+.img-box img {
+	max-height: 90%;
+	max-width: 90%;
+
+	width: auto;
+	height: auto;
+
+	position: relative;
+
+	vertical-align: middle;
+}
+
+#about-box .bio-box {
+	flex: 3;
+
+	font-size: 2.5vh;
+
+	align-self: center;
+}
+
+#research-box {
+	display: flex;
+
+	flex-direction: column;
+	justify-content: stretch;
+
+/*	outline: 2px solid blue;*/
+}
+
+.research-interest {
+	flex: 1;
+	border: 3px solid #6CACE4;
+	background-color: #6CACE420;
+	border-radius: 2vw;
+
+	padding-left: 2vw;
+	padding-right: 2vw;
+	padding-top: 2vh;
+	padding-bottom: 2vh;
+	margin-bottom: 2vh;
+	margin-left: 0px;
+	margin-right: 0px;
+
+	box-shadow: 5px 5px 5px rgba(100,100,100,0.5);
+
+}
+
+.research-interest h2 {
+	text-align: center;
+
+	text-decoration: underline;
+
+	padding: 0%;
+	margin: 0%;
+	max-width: 100%;
+}
+
+.research-interest p {
+	text-align: center;
+
+	padding: 0%;
+	margin: 0%;
+	max-width: 100%;
+}
+
+.pub-item {
+	padding: 2vh;
+}
+
+.pub-item h2 {
+	font-size: 1.5vw;
+}
