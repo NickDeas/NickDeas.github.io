@@ -20,7 +20,6 @@
 
 const NAV_LINKS = [
   { key: "index", label: "Article", href: "index.html" },
-  { key: "example-widget-demo", label: "Widget Demo", href: "pages/example-widget-demo.html" },
   // Add further pages here, e.g.:
   // { key: "methods", label: "Methods", href: "pages/methods.html" },
 ];
@@ -45,7 +44,6 @@ class SiteHeader extends HTMLElement {
         <a class="site-title" href="${root}index.html">${SITE_SHORT_TITLE}</a>
         <nav class="site-nav" aria-label="Primary">
           ${navHtml}
-          <a href="${REPO_URL}" target="_blank" rel="noopener">Code</a>
         </nav>
         <button class="theme-toggle" type="button" aria-label="Toggle dark mode">◐ Theme</button>
       </div>

@@ -1,9 +1,10 @@
 <!DOCTYPE html>
 
-<html>
+<html lang="en">
 	<head>
+		<meta charset="utf-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1">
 		<title> Nicholas Deas - PhD Student </title>
-
 
 		<link rel="stylesheet" href="./static/css/stylesheet.css">
 
@@ -13,47 +14,55 @@
 
 		<div id = 'header'>
 
-			<div class = 'header-spacer'>
-
-			</div>
-
 			<h1>
 				Nick Deas
 			</h1>
 
-			<div class = 'header-spacer'>
+			<nav class="nav">
 
-			</div>
+				<div class = 'nav-item'>
+					<a href = '#about-box'> About </a>
+				</div>
 
-			<div class = 'nav-item'>
-				<a href = '#about-box'> About </a>
-			</div>
+				<div class = 'nav-item'>
+					<a href = '#research-box'> Research </a>
+				</div>
 
-			<div class = 'nav-item'>
-				<a href = '#research-box'> Research </a>
-			</div>
+				<div class = 'nav-item'>
+					<a href = '#contact-box'> Contact </a>
+				</div>
 
-			<div class = 'nav-item'>
-				<a href = '#pub-box'> Publications </a>
-			</div>
+				<div class = 'nav-item'>
+					<a href = '#pub-box'> Publications </a>
+				</div>
+
+				<div class = 'nav-item'>
+					<a href = './blog/index.html'> Blog </a>
+				</div>
+
+				<button class="theme-toggle" type="button" aria-label="Switch to dark mode">☽</button>
+
+			</nav>
 
 		</div>
 
 		<div id = 'main'>
 
+			<div class="page-layout">
+
+			<div class="page-main">
+
 			<div id = 'about-box' class = 'content-box'>
 
 				<div class = 'img-box'>
-					<img src='./static/images/headshot.jpg'/>
+					<img src='./static/images/headshot.jpg' alt='Portrait of Nick Deas'/>
 				</div>
 
 				<div class = 'bio-box'>
-					I'm Nick, a fourth-year Computer Science PhD candidate in Columbia University's Natural Language Text Processing Lab and a member of the <a href="https://cail.columbia.edu/"> Columbia Core AI Lab (CAIL)</a>. My research interests broadly lie at the intersection of Natural Language Processing, linguistics, and the social sciences working toward more nuanced and improved understanding of attitudes in LLMs including the relationship between attitude expression and identity. I am grateful to be advised by Professor Kathleen McKeown, and I am generously supported by the NSF Graduate Research Fellowship, the Columbia Presidential Fellowship, and the Provost Diversity Fellowship.
-				<!-- </div> -->
+					I'm Nick, a fifth-year Computer Science PhD candidate in Columbia University's Natural Language Text Processing Lab and a member of the <a href="https://cail.columbia.edu/"> Columbia Core AI Lab (CAIL)</a>. My research interests broadly lie at the intersection of Natural Language Processing, linguistics, and the social sciences working toward more nuanced and improved understanding of attitudes in LLMs including the relationship between attitude expression and identity. I am grateful to be advised by Professor Kathleen McKeown, and I am generously supported by the NSF Graduate Research Fellowship, the Columbia Presidential Fellowship, and the Provost Diversity Fellowship.
 
-				<!-- <div class = 'contact-box'> -->
 					<br>
-					<br><strong>Email:</strong> ndeas AT cs DOT columbia DOT edu 
+					<br><strong>Email:</strong> ndeas AT cs DOT columbia DOT edu
 					<br><strong> Office: </strong> Schapiro CEPSR 701
 					<br>[<a href = 'https://www.nicholasdeas.com/cv.pdf'> CV </a>][<a href='https://github.com/NickDeas'> Github </a>][<a href="https://scholar.google.com/citations?user=hwiDX74AAAAJ&hl=en&authuser=2"> Google Scholar </a>] [<a href="https://www.linkedin.com/in/ndeas/"> LinkedIn </a>]
 				</div>
@@ -61,82 +70,147 @@
 
 			<div id = 'research-box' class = 'content-box'>
 				<h1> Research Interests </h1>
-				<div class = 'research-interest'>
+				<div class = 'research-interest' data-field = 'soc'>
 					<h2> Identity-based Biases in LLMs </h2>
 					<p>
 						Much of the text found online used for pre-training language models reflects particular forms of English, namely White Mainstream English, leading to models that are less capable of grappling with other language varieties of English, such as African American Language, or varieties of other languages. My work in this direction focuses on evaluating and mitigating linguistic biases to help create models capable of broadly understanding language across identities.
 					</p>
 				</div>
 
-				<div class = 'research-interest'>
+				<div class = 'research-interest' data-field = 'p'>
 					<h2> Modeling Social Psychology and Attitudes</h2>
 					<p>
 						As language models continue to be applied in psychological research and mental health settings, they must be capable of interpreting nuanced expressions of emotion or mental health. My work in this direction draws on theories and findings in social psychology to imbue models with better understanding of human expressions of attitudes and interpersonal behavior through language.
 					</p>
 				</div>
 
-				<div class = 'research-interest'>
+				<div class = 'research-interest' data-field = 'ps'>
 					<h2> Modeling Political Perspectives and Polarization </h2>
 					<p>
 						With increased interaction on social media and a diverse array of media sources, it is important to ensure that language models fairly learn from and aid constructive public discourse. This research direction aims to develop systems capable of faithfully reasoning about group perspectives, fairly represent perspectives across groups, and develop approaches to better understand nuances of political speech and rhetoric, particularly online.
 					</p>
 				</div>
-			</div> 
+
+				Recently, I am also increasingly interested in applying mechanistic interpretability approaches to study the above concepts in language models, and studying pretraining data, and multi/cross-lingual settings.
+			</div>
+
+			<div id = 'contact-box' class = 'content-box'>
+				<h1> Contact &amp; Collaboration </h1>
+				<p>
+					If you are an undergraduate or master's student at Columbia interested in working with me or our lab, I typically look for students through the research fair at the beginning of each semester.
+					I would also suggest taking Professor McKeown's <a href="https://www.cs.columbia.edu/~kathy/coms6975.html">language generation and summarization seminar</a> this Fall, which involves research-based projects advised by her and students in our lab.
+					<br><br>
+					If you are otherwise interested in talking about research or potential collaborations, please reach out to me over email!
+				</p>
+			</div>
 
 			<div id = 'pub-box' class = 'content-box'>
 				<h1> Selected Publications </h1>
-				<p> [<strong style='color: red'>NLP: NLP and Computational Linguistics </strong>, <strong style = 'color:blue'> P: Psychology</strong>, <strong style='color: green'> PS: Political Science</strong>]
-				<p>
 
-				<div class = 'pub-item'>
-					<h2>[<strong style='color:red'>NLP</strong>,<strong style='color:blue'>P</strong>]<strong> <a href = 'https://aclanthology.org/2025.emnlp-main.981/'> Artificial Impressions: Evaluating Large Language Model Behavior through the Lens of Trait Impressions </a></strong> </h2>
-					<strong>Nicholas Deas</strong>, Kathleen McKeown (EMNLP 2025)
+				<div class="filter-bar" role="group" aria-label="Filter publications by research area">
+					<button class="chip is-active" type="button" data-filter="all">All</button>
+					<button class="chip" type="button" data-filter="nlp">NLP &amp; Computational Linguistics</button>
+					<button class="chip" type="button" data-filter="p">Psychology</button>
+					<button class="chip" type="button" data-filter="ps">Political Science</button>
+					<button class="chip" type="button" data-filter="soc">Sociolinguistics</button>
 				</div>
+				<p class="pub-count"></p>
 
-				<div class = 'pub-item'>
-					<h2>[<strong style='color:red'>NLP</strong>]<strong> <a href = 'https://aclanthology.org/2025.acl-long.1416/'> Data Caricatures: On the Representation of African American Language in Pretraining Corpora </a></strong> </h2>
-					<strong>Nicholas Deas</strong>*, Blake Vente*, Amith Ananthram, Jessi Grieser, Desmond Patton, Shana Kleiner, Jessi Grieser, James Shepard, Kathleen McKeown (ACL 2025)
-				</div>
-					
-				<div class = 'pub-item'>
-					<h2>[<strong style='color:red'>NLP</strong>,<strong style='color:green'>PS</strong>]<strong> <a href = 'https://aclanthology.org/2025.coling-main.539/'> Summarization of Opinionated Political Documents with Varied Perpsectives </a></strong> </h2>
-					<strong>Nicholas Deas</strong>, Kathleen McKeown (COLING 2025)
-				</div>
-				
-				<div class = 'pub-item'>
-					<h2>[<strong style='color:red'>NLP</strong>,<strong style='color:blue'>P</strong>]<strong> <a href = 'https://aclanthology.org/2024.emnlp-main.1139/'> MASIVE: Open-Ended Affective State Identification in English and Spanish </a></strong> </h2>
-					<strong>Nicholas Deas</strong>, Elsbeth Turcan, Iván Pérez Mejía, Kathleen McKeown (EMNLP 2024)
-				</div>
-				
-				<div class = 'pub-item'>
-					<h2>[<strong style='color:red'>NLP</strong>]<strong> <a href = 'https://openreview.net/pdf?id=rXEwxmnGQs'> PhonATe: Impact of Type-written Phonological Features of African American Language on Generative Language Modeling Tasks  </a></strong> </h2>
-					<strong>Nicholas Deas</strong>, Jessi Grieser, Xinmeng Hou, Shana Kleiner, Tajh Martin, Sreya Nandanampati, Desmond U Patton, Kathleen McKeown (COLM 2024)
+				<div class = 'pub-item' data-tags = 'nlp soc'>
+					<div class="tag-group"><span class="tag tag-nlp">NLP</span><span class="tag tag-p">Psychology</span><span class="tag tag-soc">Sociolinguistics</span></div>
+					<h2><a href = '#'> Retrieval Sensitivity to Identity Signals in Queries </a></h2>
+					<p class="pub-authors">Andrew Tang*, <strong>Nicholas Deas*</strong>, Kathleen McKeown, Vishal Misra (EMNLP 2026)</p>
 				</div>
 
-				<div class = 'pub-item'>
-					<h2>[<strong style='color:green'>PS</strong>]<strong> <a href = 'https://www.tandfonline.com/doi/abs/10.1080/19331681.2024.2352475'> How Negativity and Policy Content Drive the Spread of Political Messages  </a></strong> </h2>
-					Jeffrey A. Fine, D. Hudson Smith, Cierra Oliveira, <strong>Nicholas Deas</strong>, Spencer Shellnutt, Riley Stotzky, Rachel Clyburn (Journal of Information Technology &amp; Politics)
-				</div>
-				
-				<div class = 'pub-item'>
-					<h2>[<strong style='color:red'>NLP</strong>]<strong> <a href = 'https://aclanthology.org/2023.emnlp-main.421/'> Evaluation of African American Language Bias in Natural Language Generation </a></strong> </h2>
-					<strong>Nicholas Deas</strong>, Jessi Grieser, Shana Kleiner, Desmond Patton, Elsbeth Turcan, Kathleen McKeown (EMNLP 2023)
+				<div class = 'pub-item' data-tags = 'nlp p soc'>
+					<div class="tag-group"><span class="tag tag-nlp">NLP</span><span class="tag tag-p">Psychology</span><span class="tag tag-soc">Sociolinguistics</span></div>
+					<h2><a href = '#'> Probing Fine-Grained Stereotypes and Trait Structure in Large Language Models </a></h2>
+					<p class="pub-authors">Rebecca Yu*, <strong>Nicholas Deas*</strong>, Colin Wayne Leach, Kathleen McKeown (EMNLP Findings 2026)</p>
+					<p class="pub-links"><a class="post-link" href = './blog/fine-grained-stereotypes/index.html'> Blog Post &rarr; </a></p>
 				</div>
 
-				<div class = 'pub-item'>
-					<h2>[<strong style='color:red'>NLP</strong>,<strong style='color:blue'>P</strong>]<strong> <a href = 'https://doi.org/10.1016/j.chb.2022.107499'> I just want to matter: Examining the role of anti-mattering in online suicide support communities using natural language processing </a></strong> </h2>
-					<strong>Nicholas Deas</strong>, Robin Kowalski, Sophie Finnell, Emily Radovic, Hailey Carroll, Chelsea Robbins, Andrew Cook, Kenzie Hurley, Natalie Cote, Kelly Evans, Isabella Lorenzo, Kelly Kiser, Gabriela Mochizuki, Meredith Mock, and Lyndsey Brewer (Computers in Human Behavior 2023)
-				</div>	
-
-				<div class = 'pub-item'>
-					<h2><strong> [<strong style='color:red'>NLP</strong>, <strong style='color:green'>PS</strong>] Using Natural Language Processing to Automate Detection of Targeted Attacks in Political Tweets. </strong> </h2>
-
-					<strong>Nicholas Deas</strong>, Jacob Sargent, and Spencer Shellnut (MPSA 2019)
+				<div class = 'pub-item' data-tags = 'nlp p'>
+					<div class="tag-group"><span class="tag tag-nlp">NLP</span><span class="tag tag-p">Psychology</span></div>
+					<h2><a href = 'https://aclanthology.org/2025.emnlp-main.981/'> Artificial Impressions: Evaluating Large Language Model Behavior through the Lens of Trait Impressions </a></h2>
+					<p class="pub-authors"><strong>Nicholas Deas</strong>, Kathleen McKeown (EMNLP 2025)</p>
 				</div>
+
+				<div class = 'pub-item' data-tags = 'nlp soc'>
+					<div class="tag-group"><span class="tag tag-nlp">NLP</span><span class="tag tag-soc">Sociolinguistics</span></div>
+					<h2><a href = 'https://aclanthology.org/2025.acl-long.1416/'> Data Caricatures: On the Representation of African American Language in Pretraining Corpora </a></h2>
+					<p class="pub-authors"><strong>Nicholas Deas</strong>*, Blake Vente*, Amith Ananthram, Jessi Grieser, Desmond Patton, Shana Kleiner, Jessi Grieser, James Shepard, Kathleen McKeown (ACL 2025)</p>
+				</div>
+
+				<div class = 'pub-item' data-tags = 'p'>
+					<div class="tag-group"><span class="tag tag-p">Psychology</span></div>
+					<h2> <a href='https://www.researchgate.net/profile/Tyler-Hendley/publication/388193602_Mass_Shootings_in_the_21st_Century_An_Examination_through_the_Lens_of_the_Interpersonal_Psychological_Theory_of_Suicide/links/67903ac082501639f5028b48/Mass-Shootings-in-the-21st-Century-An-Examination-through-the-Lens-of-the-Interpersonal-Psychological-Theory-of-Suicide.pdf'>
+						Mass Shootings in the 21st Century: An Examination through the Lens of the Interpersonal Psychological Theory of Suicide 
+					</a></h2>
+					<p class="pub-authors">Tyler Hendley, <strong>Nicholas Deas</strong>, Sophie Finnell, Robin Kowalski (Journal of Mass Violence Research, 2025)</p>
+				</div>
+
+				<div class = 'pub-item' data-tags = 'nlp ps'>
+					<div class="tag-group"><span class="tag tag-nlp">NLP</span><span class="tag tag-ps">Political Science</span></div>
+					<h2><a href = 'https://aclanthology.org/2025.coling-main.539/'> Summarization of Opinionated Political Documents with Varied Perpsectives </a></h2>
+					<p class="pub-authors"><strong>Nicholas Deas</strong>, Kathleen McKeown (COLING 2025)</p>
+				</div>
+
+				<div class = 'pub-item' data-tags = 'nlp p'>
+					<div class="tag-group"><span class="tag tag-nlp">NLP</span><span class="tag tag-p">Psychology</span></div>
+					<h2><a href = 'https://aclanthology.org/2024.emnlp-main.1139/'> MASIVE: Open-Ended Affective State Identification in English and Spanish </a></h2>
+					<p class="pub-authors"><strong>Nicholas Deas</strong>, Elsbeth Turcan, Iván Pérez Mejía, Kathleen McKeown (EMNLP 2024)</p>
+				</div>
+
+				<div class = 'pub-item' data-tags = 'nlp soc'>
+					<div class="tag-group"><span class="tag tag-nlp">NLP</span><span class="tag tag-soc">Sociolinguistics</span></div>
+					<h2><a href = 'https://openreview.net/pdf?id=rXEwxmnGQs'> PhonATe: Impact of Type-written Phonological Features of African American Language on Generative Language Modeling Tasks  </a></h2>
+					<p class="pub-authors"><strong>Nicholas Deas</strong>, Jessi Grieser, Xinmeng Hou, Shana Kleiner, Tajh Martin, Sreya Nandanampati, Desmond U Patton, Kathleen McKeown (COLM 2024)</p>
+				</div>
+
+				<div class = 'pub-item' data-tags = 'ps'>
+					<div class="tag-group"><span class="tag tag-ps">Political Science</span></div>
+					<h2><a href = 'https://www.tandfonline.com/doi/abs/10.1080/19331681.2024.2352475'> How Negativity and Policy Content Drive the Spread of Political Messages  </a></h2>
+					<p class="pub-authors">Jeffrey A. Fine, D. Hudson Smith, Cierra Oliveira, <strong>Nicholas Deas</strong>, Spencer Shellnutt, Riley Stotzky, Rachel Clyburn (Journal of Information Technology &amp; Politics)</p>
+				</div>
+
+				<div class = 'pub-item' data-tags = 'nlp soc'>
+					<div class="tag-group"><span class="tag tag-nlp">NLP</span><span class="tag tag-soc">Sociolinguistics</span></div>
+					<h2><a href = 'https://aclanthology.org/2023.emnlp-main.421/'> Evaluation of African American Language Bias in Natural Language Generation </a></h2>
+					<p class="pub-authors"><strong>Nicholas Deas</strong>, Jessi Grieser, Shana Kleiner, Desmond Patton, Elsbeth Turcan, Kathleen McKeown (EMNLP 2023)</p>
+				</div>
+
+				<div class = 'pub-item' data-tags = 'nlp p'>
+					<div class="tag-group"><span class="tag tag-nlp">NLP</span><span class="tag tag-p">Psychology</span></div>
+					<h2><a href = 'https://doi.org/10.1016/j.chb.2022.107499'> I just want to matter: Examining the role of anti-mattering in online suicide support communities using natural language processing </a></h2>
+					<p class="pub-authors"><strong>Nicholas Deas</strong>, Robin Kowalski, Sophie Finnell, Emily Radovic, Hailey Carroll, Chelsea Robbins, Andrew Cook, Kenzie Hurley, Natalie Cote, Kelly Evans, Isabella Lorenzo, Kelly Kiser, Gabriela Mochizuki, Meredith Mock, and Lyndsey Brewer (Computers in Human Behavior 2023)</p>
+				</div>
+
+			</div>
+
+			</div>
+
+			<aside class="updates-sidebar" aria-label="Recent updates">
+				<h2> Updates </h2>
+				<ul class="updates-list">
+					<!--
+					Add new updates to the TOP of this list, one <li> per entry:
+					<li class="update-item">
+						<span class="update-date">Mon YYYY</span>
+						<span class="update-text">Your update text here.</span>
+					</li>
+					-->
+					<li class="update-item">
+						<span class="update-date">Aug 2026</span>
+						<span class="update-text">I'll be attending EMNLP 2026 in Budapest!</span>
+					</li>
+				</ul>
+			</aside>
+
 			</div>
 
 		</div>
 
+		<script src="./static/js/main.js"></script>
 
 	</body>
 

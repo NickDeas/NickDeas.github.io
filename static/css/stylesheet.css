@@ -1,197 +1,598 @@
+/* ==========================================================================
+   Design tokens
+   Every color/spacing/radius value is defined once here; the rest of this
+   file references these variables so re-theming only requires editing
+   this block (and its dark-mode counterpart below).
+   ========================================================================== */
+:root {
+	--color-primary:        #012169;  /* Columbia dark blue - brand/header */
+	--color-primary-light:  #6CACE4;  /* Columbia light blue - accents */
+	--color-heading:        #012169;
+	--color-link:           #01449e;
 
-/*
-	Dark Blue: #012169
-	Light Blue: #6CACE4
+	--color-bg:             #ffffff;
+	--color-bg-alt:         #f5f7fa;
+	--color-ink:            #2B303A;
+	--color-ink-muted:      #5b6270;
+	--color-border:         #e1e5eb;
 
-*/
+	--color-tag-nlp:        #b3261e;
+	--color-tag-nlp-bg:     #fbe6e4;
+	--color-tag-p:          #1d4ed8;
+	--color-tag-p-bg:       #e3ebfd;
+	--color-tag-ps:         #15803d;
+	--color-tag-ps-bg:      #e0f3e6;
+	--color-tag-soc:        #6d28d9;
+	--color-tag-soc-bg:     #ede9fe;
 
-html, body {
-	width: 100%;
-	margin: 0px;
-	padding: 0px;
+	--shadow-sm: 0 1px 3px rgba(15, 23, 42, 0.08);
+	--shadow-md: 0 6px 20px rgba(15, 23, 42, 0.14);
 
-	font-family: "Lucida Sans";
+	--radius-sm: 6px;
+	--radius-md: 14px;
 
-	color: #2B303A;
+	--space-1: 0.25rem;
+	--space-2: 0.5rem;
+	--space-3: 1rem;
+	--space-4: 1.5rem;
+	--space-5: 2.5rem;
 
-	scroll-behavior: smooth;
+	--font-sans: "Lucida Sans", "Segoe UI", system-ui, -apple-system, sans-serif;
 
+	--header-h: 4.25rem;
+	--content-max: 860px;
 }
 
+/* Manual override via the theme-toggle button (see static/js/main.js) */
+:root[data-theme="dark"] {
+	--color-primary-light: #8fc3ec;
+	--color-heading:       #8fc3ec;
+	--color-link:          #8fc3ec;
+
+	--color-bg:            #14171c;
+	--color-bg-alt:        #1b1f26;
+	--color-ink:           #e7e9ee;
+	--color-ink-muted:     #a3a9b7;
+	--color-border:        #2b303a;
+
+	--color-tag-nlp:       #f28b83;
+	--color-tag-nlp-bg:    #3a201d;
+	--color-tag-p:         #7fa4f2;
+	--color-tag-p-bg:      #1c2740;
+	--color-tag-ps:        #6fce93;
+	--color-tag-ps-bg:     #16301f;
+	--color-tag-soc:       #c4b5fd;
+	--color-tag-soc-bg:    #2a1854;
+
+	--shadow-sm: 0 1px 3px rgba(0, 0, 0, 0.35);
+	--shadow-md: 0 6px 20px rgba(0, 0, 0, 0.4);
+}
+
+/* Respect system preference when the visitor hasn't chosen explicitly */
+@media (prefers-color-scheme: dark) {
+	:root:not([data-theme="light"]) {
+		--color-primary-light: #8fc3ec;
+		--color-heading:       #8fc3ec;
+		--color-link:          #8fc3ec;
+
+		--color-bg:            #14171c;
+		--color-bg-alt:        #1b1f26;
+		--color-ink:           #e7e9ee;
+		--color-ink-muted:     #a3a9b7;
+		--color-border:        #2b303a;
+
+		--color-tag-nlp:       #f28b83;
+		--color-tag-nlp-bg:    #3a201d;
+		--color-tag-p:         #7fa4f2;
+		--color-tag-p-bg:      #1c2740;
+		--color-tag-ps:        #6fce93;
+		--color-tag-ps-bg:     #16301f;
+		--color-tag-soc:       #c4b5fd;
+		--color-tag-soc-bg:    #2a1854;
+
+		--shadow-sm: 0 1px 3px rgba(0, 0, 0, 0.35);
+		--shadow-md: 0 6px 20px rgba(0, 0, 0, 0.4);
+	}
+}
+
+/* ==========================================================================
+   Base
+   ========================================================================== */
+*, *::before, *::after { box-sizing: border-box; }
+
+html {
+	scroll-behavior: smooth;
+}
+
+body {
+	margin: 0;
+	font-family: var(--font-sans);
+	background-color: var(--color-bg);
+	color: var(--color-ink);
+	transition: background-color .2s ease, color .2s ease;
+}
+
+a {
+	color: var(--color-link);
+}
+
+a:focus-visible,
+button:focus-visible {
+	outline: 2px solid var(--color-link);
+	outline-offset: 2px;
+}
+
+/* ==========================================================================
+   Header / Nav
+   ========================================================================== */
 #header {
-	width: 98vw;
-	height: 7vh;
-
-	background-color: #012169;
-
-	display: flex;
-	flex-direction: horizontal;
-	justify-content: center;
-/*	align-items: center;*/
-
-	padding: 1vw;
-
 	position: fixed;
-	top: 0px;
-
+	top: 0;
+	left: 0;
+	right: 0;
 	z-index: 10;
 
-	box-shadow: 0px 5px 10px rgba(100, 100, 100, 100);
+	min-height: var(--header-h);
 
+	display: flex;
+	align-items: center;
+	justify-content: space-between;
+	flex-wrap: wrap;
+	gap: var(--space-3);
+
+	padding: var(--space-2) var(--space-4);
+
+	background-color: var(--color-primary);
+	box-shadow: var(--shadow-md);
 }
 
 #header h1 {
-	flex: 3;
-
-	color: white;
-	font-size: 2.5vw;
-
-	align-self: center;
+	margin: 0;
+	font-size: clamp(1.25rem, 2.2vw, 1.75rem);
+	font-weight: 600;
+	color: #ffffff;
 }
 
-#header .header-spacer {
-	flex-grow: 2;
-}
-
-#header .nav-item {
-	flex: 1;
-
-	position: relative;
-
-	margin-bottom: 0px;
-	margin-top: auto;
-	margin-left: 1vw;
-	margin-right: 1vw;
-
-	text-align: center;
+.nav {
+	display: flex;
+	align-items: center;
+	gap: var(--space-4);
+	flex-wrap: wrap;
 }
 
 .nav-item a {
-
-	text-align: center;
-
+	color: #ffffff;
 	text-decoration: none;
-	color: white;
-
-	font-size: 2vh;
-
-	transition: .25s;
+	font-size: 0.95rem;
+	padding-bottom: 2px;
+	border-bottom: 2px solid transparent;
+	transition: color .2s ease, border-color .2s ease;
 }
 
-.nav-item a:hover {
-	color: #6CACE4;
-	font-size: 2.5vh;
+.nav-item a:hover,
+.nav-item a:focus-visible {
+	color: var(--color-primary-light);
+	border-color: var(--color-primary-light);
 }
 
+.theme-toggle {
+	width: 2.25rem;
+	height: 2.25rem;
+	display: inline-flex;
+	align-items: center;
+	justify-content: center;
+
+	border: 1px solid rgba(255, 255, 255, 0.35);
+	border-radius: 999px;
+	background: rgba(255, 255, 255, 0.1);
+	color: #ffffff;
+
+	font-size: 1rem;
+	line-height: 1;
+	cursor: pointer;
+	transition: background-color .15s ease;
+}
+
+.theme-toggle:hover {
+	background: rgba(255, 255, 255, 0.22);
+}
+
+/* ==========================================================================
+   Main / content boxes
+   ========================================================================== */
 #main {
-	position: absolute;
-	top: 9vh;
-
-	width: 100%;
-	margin: 0px;
-	padding: 0px;
-
-	padding-top: 2vh;
-
-/*	border: 2px solid green;*/
+	padding-top: calc(var(--header-h) + var(--space-4));
+	padding-bottom: var(--space-5);
 }
-
-/* About */
 
 .content-box {
-	width: 76vw;
+	max-width: var(--content-max);
+	margin: 0 auto var(--space-5);
+	padding: 0 var(--space-4);
 
-	margin-left: 10vw;
-	margin-right: 10vw;
-	padding: 2vw;
-
-
-/*	outline: 2px solid green;*/
+	/* keeps the fixed header from covering a section when jumped to via nav */
+	scroll-margin-top: calc(var(--header-h) + var(--space-3));
 }
 
+/* ==========================================================================
+   About
+   ========================================================================== */
 #about-box {
 	display: flex;
+	align-items: center;
+	gap: var(--space-5);
 
-	width: 66vw;
-	margin-left: 15vw;
-	margin-right: 15vw;
+	max-width: 760px;
+	padding-bottom: var(--space-4);
 
-	border-bottom: 5px solid #6CACE4;
+	border-bottom: 3px solid var(--color-primary-light);
 }
 
-#about-box .img-box {
-	flex: 1;
+.img-box {
+	flex: 0 0 180px;
 }
 
 .img-box img {
-	max-height: 90%;
-	max-width: 90%;
-
-	width: auto;
+	width: 100%;
 	height: auto;
-
-	position: relative;
-
-	vertical-align: middle;
+	border-radius: var(--radius-md);
+	box-shadow: var(--shadow-sm);
 }
 
-#about-box .bio-box {
-	flex: 3;
+.bio-box {
+	flex: 1;
+	font-size: 1.05rem;
+	line-height: 1.65;
+}
 
-	font-size: 2.5vh;
+@media (max-width: 700px) {
+	#about-box {
+		flex-direction: column;
+		text-align: center;
+	}
 
-	align-self: center;
+	.img-box {
+		flex: 0 0 auto;
+		width: 140px;
+		margin: 0 auto;
+	}
+}
+
+/* ==========================================================================
+   Research interests
+   ========================================================================== */
+#research-box h1,
+#pub-box h1 {
+	font-size: clamp(1.4rem, 2.6vw, 1.9rem);
+	color: var(--color-heading);
+	margin-top: 0;
+	margin-bottom: var(--space-4);
 }
 
 #research-box {
 	display: flex;
-
 	flex-direction: column;
-	justify-content: stretch;
-
-/*	outline: 2px solid blue;*/
 }
 
 .research-interest {
-	flex: 1;
-	border: 3px solid #6CACE4;
-	background-color: #6CACE420;
-	border-radius: 2vw;
+	border: 1px solid var(--color-border);
+	border-left: 4px solid var(--color-border);
+	border-radius: var(--radius-md);
+	background-color: var(--color-bg-alt);
+	box-shadow: var(--shadow-sm);
 
-	padding-left: 2vw;
-	padding-right: 2vw;
-	padding-top: 2vh;
-	padding-bottom: 2vh;
-	margin-bottom: 2vh;
-	margin-left: 0px;
-	margin-right: 0px;
-
-	box-shadow: 5px 5px 5px rgba(100,100,100,0.5);
-
+	padding: var(--space-4);
+	margin-bottom: var(--space-3);
 }
 
+.research-interest[data-field="soc"] { border-left-color: var(--color-tag-soc); }
+.research-interest[data-field="p"]   { border-left-color: var(--color-tag-p); }
+.research-interest[data-field="ps"]  { border-left-color: var(--color-tag-ps); }
+
 .research-interest h2 {
-	text-align: center;
-
-	text-decoration: underline;
-
-	padding: 0%;
-	margin: 0%;
-	max-width: 100%;
+	margin: 0 0 var(--space-2);
+	font-size: 1.15rem;
+	color: var(--color-heading);
 }
 
 .research-interest p {
-	text-align: center;
+	margin: 0;
+	color: var(--color-ink-muted);
+	line-height: 1.65;
+}
 
-	padding: 0%;
-	margin: 0%;
-	max-width: 100%;
+/* ==========================================================================
+   Publications
+   ========================================================================== */
+.filter-bar {
+	display: flex;
+	flex-wrap: wrap;
+	gap: var(--space-2);
+	margin-bottom: var(--space-4);
+}
+
+.chip {
+	font: inherit;
+	font-size: 0.85rem;
+	cursor: pointer;
+
+	padding: 0.4rem 0.9rem;
+	border: 1px solid var(--color-border);
+	border-radius: 999px;
+	background-color: var(--color-bg-alt);
+	color: var(--color-ink);
+
+	transition: background-color .15s ease, border-color .15s ease, color .15s ease;
+}
+
+.chip:hover {
+	border-color: var(--color-link);
+}
+
+.chip.is-active {
+	background-color: var(--color-primary);
+	border-color: var(--color-primary);
+	color: #ffffff;
+}
+
+/* Category chips pick up the same color as their matching tag pill, so the
+   filter bar visually maps 1:1 onto the tags on each publication. */
+.chip[data-filter="nlp"] { color: var(--color-tag-nlp); border-color: var(--color-tag-nlp-bg); }
+.chip[data-filter="p"]   { color: var(--color-tag-p);   border-color: var(--color-tag-p-bg); }
+.chip[data-filter="ps"]  { color: var(--color-tag-ps);  border-color: var(--color-tag-ps-bg); }
+.chip[data-filter="soc"] { color: var(--color-tag-soc); border-color: var(--color-tag-soc-bg); }
+
+.chip[data-filter="nlp"].is-active { background-color: var(--color-tag-nlp); border-color: var(--color-tag-nlp); color: #ffffff; }
+.chip[data-filter="p"].is-active   { background-color: var(--color-tag-p);   border-color: var(--color-tag-p);   color: #ffffff; }
+.chip[data-filter="ps"].is-active  { background-color: var(--color-tag-ps);  border-color: var(--color-tag-ps);  color: #ffffff; }
+.chip[data-filter="soc"].is-active { background-color: var(--color-tag-soc); border-color: var(--color-tag-soc); color: #ffffff; }
+
+.pub-count {
+	font-size: 0.85rem;
+	color: var(--color-ink-muted);
+	margin: 0 0 var(--space-3);
 }
 
 .pub-item {
-	padding: 2vh;
+	padding: var(--space-3) 0;
+	border-bottom: 1px solid var(--color-border);
+}
+
+.pub-item:last-child {
+	border-bottom: none;
+}
+
+.pub-item.is-hidden {
+	display: none;
 }
 
 .pub-item h2 {
-	font-size: 1.5vw;
+	font-size: 1.05rem;
+	line-height: 1.4;
+	margin: 0 0 var(--space-1);
+}
+
+.pub-item h2 a {
+	color: var(--color-heading);
+	text-decoration: none;
+}
+
+.pub-item h2 a:hover {
+	text-decoration: underline;
+}
+
+.pub-authors {
+	margin: 0 0 var(--space-2);
+	color: var(--color-ink-muted);
+	font-size: 0.92rem;
+}
+
+.pub-links {
+	margin: 0.35rem 0 0;
+}
+
+.tag-group {
+	display: flex;
+	flex-wrap: wrap;
+	gap: var(--space-1);
+}
+
+.tag {
+	font-size: 0.72rem;
+	font-weight: 600;
+	letter-spacing: .02em;
+	padding: 0.15rem 0.55rem;
+	border-radius: 999px;
+}
+
+.tag-nlp { color: var(--color-tag-nlp); background-color: var(--color-tag-nlp-bg); }
+.tag-p   { color: var(--color-tag-p);   background-color: var(--color-tag-p-bg); }
+.tag-ps  { color: var(--color-tag-ps);  background-color: var(--color-tag-ps-bg); }
+.tag-soc { color: var(--color-tag-soc); background-color: var(--color-tag-soc-bg); }
+
+/* ==========================================================================
+   Small screens
+   ========================================================================== */
+@media (max-width: 700px) {
+	#header {
+		padding: var(--space-2) var(--space-3);
+	}
+
+	.nav {
+		gap: var(--space-3);
+	}
+
+	.content-box {
+		padding: 0 var(--space-3);
+	}
+}
+
+/* ==========================================================================
+   Page layout with sidebar (homepage)
+   ========================================================================== */
+.page-layout {
+	display: grid;
+	grid-template-columns: minmax(0, 1fr) 280px;
+	gap: var(--space-5);
+
+	max-width: 1120px;
+	margin: 0 auto;
+	padding: 0 var(--space-4);
+}
+
+/* content-boxes already center/cap their own width for the single-column
+   blog page; inside the two-column layout they should just fill the
+   available main column instead. */
+.page-layout .content-box {
+	max-width: none;
+	margin-left: 0;
+	margin-right: 0;
+	padding: 0;
+}
+
+#about-box.content-box {
+	max-width: 760px;
+}
+
+.updates-sidebar {
+	align-self: start;
+	position: sticky;
+	top: calc(var(--header-h) + var(--space-4));
+
+	border: 1px solid var(--color-border);
+	border-radius: var(--radius-md);
+	background-color: var(--color-bg-alt);
+	box-shadow: var(--shadow-sm);
+
+	padding: var(--space-4);
+}
+
+.updates-sidebar h2 {
+	margin: 0 0 var(--space-3);
+	font-size: 1.05rem;
+	color: var(--color-heading);
+}
+
+.updates-list {
+	list-style: none;
+	margin: 0;
+	padding: 0;
+}
+
+.update-item {
+	display: flex;
+	flex-direction: column;
+	gap: 0.15rem;
+
+	padding: var(--space-2) 0;
+	border-bottom: 1px solid var(--color-border);
+}
+
+.update-item:last-child {
+	border-bottom: none;
+}
+
+.update-date {
+	font-size: 0.75rem;
+	font-weight: 600;
+	letter-spacing: .02em;
+	color: var(--color-ink-muted);
+	text-transform: uppercase;
+}
+
+.update-text {
+	font-size: 0.9rem;
+	line-height: 1.45;
+}
+
+@media (max-width: 900px) {
+	.page-layout {
+		grid-template-columns: 1fr;
+	}
+
+	.updates-sidebar {
+		position: static;
+	}
+}
+
+/* ==========================================================================
+   Contact / collaboration section
+   ========================================================================== */
+#contact-box p {
+	font-size: 1rem;
+	line-height: 1.6;
+}
+
+.placeholder-text {
+	color: var(--color-ink-muted);
+	font-style: italic;
+	border: 1px dashed var(--color-border);
+	border-radius: var(--radius-sm);
+	padding: var(--space-3);
+}
+
+/* ==========================================================================
+   Blog landing page
+   ========================================================================== */
+.blog-intro {
+	color: var(--color-ink-muted);
+	font-size: 1rem;
+	line-height: 1.6;
+	margin-bottom: var(--space-4);
+}
+
+.post-grid {
+	display: flex;
+	flex-direction: column;
+	gap: var(--space-4);
+}
+
+.post-card {
+	border: 1px solid var(--color-border);
+	border-radius: var(--radius-md);
+	background-color: var(--color-bg-alt);
+	box-shadow: var(--shadow-sm);
+	padding: var(--space-4);
+}
+
+.post-card .badge {
+	display: inline-block;
+	font-size: 0.72rem;
+	font-weight: 600;
+	letter-spacing: .02em;
+	padding: 0.15rem 0.6rem;
+	border-radius: 999px;
+	color: var(--color-tag-nlp);
+	background-color: var(--color-tag-nlp-bg);
+	margin-bottom: var(--space-2);
+}
+
+.post-card h2 {
+	margin: 0 0 var(--space-1);
+	font-size: 1.2rem;
+}
+
+.post-card h2 a {
+	color: var(--color-heading);
+	text-decoration: none;
+}
+
+.post-card h2 a:hover {
+	text-decoration: underline;
+}
+
+.post-card .post-meta {
+	margin: 0 0 var(--space-2);
+	font-size: 0.85rem;
+	color: var(--color-ink-muted);
+}
+
+.post-card p {
+	margin: 0 0 var(--space-2);
+	line-height: 1.6;
+}
+
+.post-card .post-link {
+	font-size: 0.9rem;
+	font-weight: 600;
 }
