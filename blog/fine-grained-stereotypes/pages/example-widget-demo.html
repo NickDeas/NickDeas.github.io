@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Widget Demo — [Paper Title]</title>
+  <meta name="description" content="Working examples of the interactive widget patterns used throughout this site: a draggable force-directed network, and a button-driven Plotly figure." />
+
+  <link rel="icon" href="data:," />
+
+  <link rel="stylesheet" href="../assets/css/tokens.css" />
+  <link rel="stylesheet" href="../assets/css/base.css" />
+  <link rel="stylesheet" href="../assets/css/layout.css" />
+  <link rel="stylesheet" href="../assets/css/components.css" />
+
+  <!-- Widget libraries: only loaded on pages that need them, not sitewide. -->
+  <script src="https://cdn.jsdelivr.net/npm/d3@7/dist/d3.min.js"></script>
+  <script src="https://cdn.plot.ly/plotly-2.35.2.min.js" charset="utf-8"></script>
+</head>
+<body>
+  <a class="skip-link" href="#main">Skip to content</a>
+
+  <site-header root="../" current="example-widget-demo"></site-header>
+
+  <main id="main">
+    <article class="article">
+      <header class="article-header">
+        <span class="badge">Reference page</span>
+        <h1>Interactive widget patterns</h1>
+        <p class="byline">
+          This page is not part of the paper narrative — it's a working
+          reference for the two interactive-figure patterns you described:
+          a draggable node-link network, and a Plotly figure driven by
+          buttons. Copy the markup/JS from here into real sections once you
+          have data to plug in, then delete this page.
+        </p>
+      </header>
+
+      <div class="page-shell">
+        <details class="toc" open>
+          <summary>Contents</summary>
+          <p class="toc-label">On this page</p>
+          <nav id="toc-list" class="toc-list" aria-label="Table of contents"></nav>
+        </details>
+
+        <div class="article-body-wrap">
+          <div class="article-body">
+
+            <h2 id="network-widget">Draggable network</h2>
+            <p>
+              A minimal D3 force-directed graph. Nodes are draggable; the
+              simulation re-settles as you move them. This is the pattern to
+              extend for, e.g., a circuit diagram where nodes are
+              attention heads / MLP layers and edges are attribution
+              weights.
+            </p>
+            <figure class="widget full-bleed">
+              <div class="widget-controls">
+                <button class="btn" id="network-reheat" type="button">Reheat simulation</button>
+                <button class="btn" id="network-add-node" type="button">Add node</button>
+              </div>
+              <svg id="network-canvas" class="widget-canvas" role="img" aria-label="Draggable example network"></svg>
+              <figcaption><span class="fig-number">Demo 1.</span> Drag any
+                node. "Reheat simulation" nudges the layout again; "Add node"
+                shows how to extend the dataset at runtime.</figcaption>
+            </figure>
+
+            <h2 id="plotly-widget">Button-driven Plotly figure</h2>
+            <p>
+              A Plotly figure whose data updates via <code>Plotly.react</code>
+              when a button is clicked, rather than a full redraw. Swap the
+              two placeholder datasets below for, e.g., stereotype-score
+              distributions per demographic axis.
+            </p>
+            <figure class="widget full-bleed">
+              <div class="widget-controls">
+                <button class="btn is-active" id="plotly-dataset-a" type="button">Dataset A</button>
+                <button class="btn" id="plotly-dataset-b" type="button">Dataset B</button>
+              </div>
+              <div id="plotly-canvas" class="widget-canvas"></div>
+              <figcaption><span class="fig-number">Demo 2.</span> Click a
+                dataset button to animate between two example
+                distributions.</figcaption>
+            </figure>
+
+            <div class="callout">
+              <div class="callout-title">Sizing note</div>
+              <p>
+                Both widgets above use <code>class="widget full-bleed"</code>,
+                which extends the figure into the sidenote margin for extra
+                width — appropriate for data-dense figures. Drop
+                <code>full-bleed</code> to keep a figure within the normal
+                text column instead.
+              </p>
+            </div>
+
+          </div>
+        </div>
+      </div>
+    </article>
+  </main>
+
+  <site-footer root="../"></site-footer>
+
+  <script defer src="../assets/js/shared-chrome.js"></script>
+  <script defer src="../assets/js/toc.js"></script>
+  <script defer src="../assets/js/widgets/network-demo.js"></script>
+  <script defer src="../assets/js/widgets/plotly-demo.js"></script>
+</body>
+</html>

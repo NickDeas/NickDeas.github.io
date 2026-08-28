@@ -1,0 +1,125 @@
+/* =========================================================================
+   base.css — reset, typography, prose elements
+   ========================================================================= */
+
+*, *::before, *::after { box-sizing: border-box; }
+
+html {
+  font-size: var(--font-size-base);
+  scroll-behavior: smooth;
+}
+
+body {
+  margin: 0;
+  background: var(--color-bg);
+  color: var(--color-ink);
+  font-family: var(--font-serif);
+  line-height: var(--line-height-base);
+  -webkit-font-smoothing: antialiased;
+  text-rendering: optimizeLegibility;
+}
+
+/* UI chrome (nav, buttons, labels, captions, TOC) uses the sans stack;
+   only long-form prose uses the serif. */
+nav, .toc, .site-footer, button, .btn, figcaption, .meta, .label,
+.widget-controls, .badge {
+  font-family: var(--font-sans);
+}
+
+img, svg { max-width: 100%; display: block; }
+
+a {
+  color: var(--color-accent);
+  text-decoration-thickness: 1px;
+  text-underline-offset: 2px;
+}
+a:hover { color: var(--color-accent-ink); }
+a:focus-visible, button:focus-visible, [tabindex]:focus-visible {
+  outline: 2px solid var(--color-focus-ring);
+  outline-offset: 2px;
+}
+
+h1, h2, h3, h4 {
+  font-family: var(--font-serif);
+  font-weight: 600;
+  line-height: 1.25;
+  color: var(--color-ink);
+  margin: var(--space-5) 0 var(--space-3);
+}
+h1 { font-size: 2.5rem; }
+h2 { font-size: 1.6rem; border-bottom: 1px solid var(--color-border); padding-bottom: var(--space-2); }
+h3 { font-size: 1.25rem; }
+h4 { font-size: 1.05rem; font-style: italic; }
+
+p { margin: 0 0 var(--space-3); }
+
+blockquote {
+  margin: var(--space-4) 0;
+  padding: var(--space-2) var(--space-4);
+  border-left: 3px solid var(--color-accent);
+  color: var(--color-ink-muted);
+  font-style: italic;
+}
+
+code, pre {
+  font-family: var(--font-mono);
+  font-size: 0.88em;
+  background: var(--color-bg-code);
+  border-radius: var(--radius-sm);
+}
+code { padding: 0.1em 0.35em; }
+pre {
+  padding: var(--space-3);
+  overflow-x: auto;
+  border: 1px solid var(--color-border);
+}
+pre code { padding: 0; background: none; }
+
+/* Add class="wrap" to any <pre> to wrap long lines instead of scrolling
+   horizontally — handy for citation text, long prose-like strings, or
+   anything where losing the right edge on narrow screens is worse than
+   losing monospace alignment. */
+pre.wrap {
+  white-space: pre-wrap;
+  overflow-wrap: anywhere;
+  overflow-x: visible;
+}
+
+table {
+  border-collapse: collapse;
+  width: 100%;
+  margin: var(--space-4) 0;
+  font-family: var(--font-sans);
+  font-size: 0.92rem;
+}
+th, td {
+  border-bottom: 1px solid var(--color-border);
+  padding: var(--space-2) var(--space-3);
+  text-align: left;
+}
+th { color: var(--color-ink-muted); font-weight: 600; }
+
+hr {
+  border: none;
+  border-top: 1px solid var(--color-border);
+  margin: var(--space-5) 0;
+}
+
+::selection { background: var(--color-accent-soft); }
+
+/* Skip link for keyboard/screen-reader users */
+.skip-link {
+  position: absolute;
+  left: -999px;
+  top: auto;
+}
+.skip-link:focus {
+  position: fixed;
+  left: var(--space-3);
+  top: var(--space-3);
+  z-index: 1000;
+  background: var(--color-bg);
+  padding: var(--space-2) var(--space-3);
+  border: 1px solid var(--color-border-strong);
+  border-radius: var(--radius-sm);
+}

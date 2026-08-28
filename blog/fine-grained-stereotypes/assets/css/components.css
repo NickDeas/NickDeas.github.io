@@ -1,0 +1,300 @@
+/* =========================================================================
+   components.css — buttons, widget chrome, badges, misc reusable bits
+   ========================================================================= */
+
+.btn {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-1);
+  font-family: var(--font-sans);
+  font-size: 0.85rem;
+  font-weight: 600;
+  color: var(--color-ink);
+  background: var(--color-bg);
+  border: 1px solid var(--color-border-strong);
+  border-radius: var(--radius-md);
+  padding: var(--space-1) var(--space-3);
+  cursor: pointer;
+  transition: background 0.15s ease, border-color 0.15s ease, color 0.15s ease;
+}
+.btn:hover { border-color: var(--color-accent); color: var(--color-accent-ink); }
+.btn.is-active {
+  background: var(--color-accent);
+  border-color: var(--color-accent);
+  color: #fff;
+}
+
+/* Wrap any <pre> in a .citation-box with a .copy-btn[data-copy-target=...]
+   pointing at the <pre>'s id to get a copy-to-clipboard button — see
+   copy-blocks.js. Not citation-specific despite the name: the same pair
+   works around any block you want a copy affordance on. */
+.citation-box {
+  position: relative;
+  margin: var(--space-3) 0;
+}
+.citation-box pre { margin: 0; padding-right: calc(var(--space-3) + 4.5rem); }
+
+.copy-btn {
+  position: absolute;
+  top: var(--space-2);
+  right: var(--space-2);
+  font-family: var(--font-sans);
+  font-size: 0.72rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+  color: var(--color-ink-muted);
+  background: var(--color-bg);
+  border: 1px solid var(--color-border-strong);
+  border-radius: var(--radius-sm);
+  padding: 0.25em 0.6em;
+  cursor: pointer;
+  transition: color 0.15s ease, border-color 0.15s ease;
+}
+.copy-btn:hover { color: var(--color-accent-ink); border-color: var(--color-accent); }
+.copy-btn.is-copied { color: var(--color-secondary); border-color: var(--color-secondary); }
+
+.widget-controls {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-2);
+  margin-bottom: var(--space-3);
+}
+
+/* Button-driven "slider": a row of segments that behaves like a switch —
+   click any segment to jump to it, and a sliding thumb animates between
+   positions. Use for a small set of discrete, mutually-exclusive views
+   (e.g. switching which factor/axis a figure shows) where a plain button
+   row (.widget-controls/.btn) would work but a slider communicates
+   "one of these, in order" more clearly. */
+.segmented-control {
+  position: relative;
+  display: flex;
+  width: max-content;
+  max-width: 100%;
+  gap: 2px;
+  padding: 3px;
+  background: var(--color-bg-raised);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-md);
+  margin: 0 auto var(--space-3);
+}
+.segmented-thumb {
+  position: absolute;
+  top: 3px;
+  left: 0;
+  bottom: 3px;
+  background: var(--color-accent);
+  border-radius: calc(var(--radius-md) - 2px);
+  transition: transform 0.25s cubic-bezier(0.4, 0, 0.2, 1), width 0.25s ease;
+  z-index: 0;
+}
+.segmented-btn {
+  position: relative;
+  z-index: 1;
+  flex: 1 1 auto;
+  font-family: var(--font-sans);
+  text-align: center;
+  color: var(--color-ink-muted);
+  background: transparent;
+  border: none;
+  border-radius: calc(var(--radius-md) - 2px);
+  padding: var(--space-2) var(--space-4);
+  cursor: pointer;
+  transition: color 0.2s ease;
+}
+.segmented-btn .segmented-title {
+  display: block;
+  font-size: 0.85rem;
+  font-weight: 600;
+}
+.segmented-btn .segmented-sub {
+  display: block;
+  font-size: 0.72rem;
+  font-weight: 400;
+  letter-spacing: 0.02em;
+  opacity: 0.85;
+}
+.segmented-btn:hover { color: var(--color-accent-ink); }
+.segmented-btn.is-active { color: #fff; }
+.segmented-btn.is-active:hover { color: #fff; }
+
+.widget-canvas {
+  width: 100%;
+  min-height: 320px;
+  background: var(--color-bg);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-sm);
+}
+
+.badge {
+  display: inline-block;
+  font-size: 0.7rem;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  font-weight: 600;
+  padding: 0.15em 0.5em;
+  border-radius: var(--radius-sm);
+  background: var(--color-accent-soft);
+  color: var(--color-accent-ink);
+}
+
+.callout {
+  border: 1px solid var(--color-border);
+  border-left: 4px solid var(--color-secondary);
+  background: var(--color-bg-raised);
+  border-radius: 0 var(--radius-md) var(--radius-md) 0;
+  padding: var(--space-3) var(--space-4);
+  margin: var(--space-4) 0;
+  font-size: 0.95rem;
+}
+.callout-title {
+  font-family: var(--font-sans);
+  font-weight: 700;
+  font-size: 0.8rem;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  color: var(--color-secondary);
+  margin-bottom: var(--space-1);
+}
+
+/* Placeholder swatch used inside the template to mark spots where a real
+   figure/screenshot will eventually replace a stand-in demo. Remove once
+   real content is in place. */
+.placeholder-note {
+  font-family: var(--font-sans);
+  font-size: 0.8rem;
+  color: var(--color-ink-faint);
+  border: 1px dashed var(--color-border-strong);
+  border-radius: var(--radius-sm);
+  padding: var(--space-2) var(--space-3);
+  margin-top: var(--space-2);
+}
+
+/* KaTeX display math: let it sit comfortably in the narrower content
+   column rather than overflowing on small widths. */
+.katex-display { overflow-x: auto; overflow-y: hidden; padding: var(--space-1) 0; }
+
+/* A single labeled range input above a widget -- e.g. the correlation-
+   strength threshold on the trait network. Pairs with a `.range-value`
+   (current value) and can take a second trailing meta span (e.g. a live
+   edge count) via `.range-meta`. */
+.range-control {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: var(--space-2) var(--space-3);
+  margin-bottom: var(--space-3);
+  font-family: var(--font-sans);
+  font-size: 0.85rem;
+}
+.range-control label {
+  font-weight: 600;
+  color: var(--color-ink);
+  white-space: nowrap;
+}
+.range-control input[type="range"] {
+  flex: 1 1 12rem;
+  accent-color: var(--color-accent);
+}
+.range-control .range-value {
+  font-family: var(--font-mono);
+  font-size: 0.8rem;
+  color: var(--color-ink);
+  white-space: nowrap;
+  min-width: 5.5em;
+}
+.range-control .range-meta {
+  font-size: 0.78rem;
+  color: var(--color-ink-muted);
+  white-space: nowrap;
+}
+
+/* Small inline color-key row for hand-rolled (non-Plotly) chart widgets
+   -- swatch/line + label pairs, e.g. the trait-correlation network's
+   dictionary and edge-polarity key. */
+.chart-legend {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-2) var(--space-4);
+  justify-content: center;
+  margin-top: var(--space-2);
+  font-family: var(--font-sans);
+  font-size: 0.8rem;
+  color: var(--color-ink-muted);
+}
+.chart-legend .legend-item {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4em;
+}
+.chart-legend .legend-swatch {
+  width: 0.8em;
+  height: 0.8em;
+  border-radius: 50%;
+  flex: none;
+  border: 1.5px solid var(--color-ink);
+}
+.chart-legend .legend-line {
+  width: 1.5em;
+  height: 0;
+  border-top-width: 2.5px;
+  border-top-style: solid;
+  flex: none;
+}
+.chart-legend .legend-line.is-dashed { border-top-style: dashed; }
+
+/* Top/bottom-trait stereotype table (RQ3) -- a set of small dense data
+   tables rather than a chart, so it reuses the base <table> rules in
+   base.css but adds compact spacing, a per-trait SCM-dictionary color dot
+   (same validated palette as the other trait figures), a muted monospace
+   value, and a small superscript significance marker. */
+.stereotype-table-panel { margin-top: var(--space-4); }
+.stereotype-table-panel:first-of-type { margin-top: var(--space-2); }
+.stereotype-table-heading {
+  font-family: var(--font-sans);
+  font-size: 0.78rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  color: var(--color-ink-muted);
+  margin: 0 0 var(--space-2);
+}
+/* Horizontal scroller so the 4-group table degrades to swipe-to-scroll on
+   narrow screens instead of clipping columns off the edge. */
+.stereotype-table-scroll {
+  overflow-x: auto;
+  -webkit-overflow-scrolling: touch;
+}
+.stereotype-table {
+  font-size: 0.85rem;
+  margin: 0;
+  min-width: 640px;
+}
+.stereotype-table th, .stereotype-table td {
+  padding: 0.35em var(--space-2);
+}
+.stereotype-table th:first-child, .stereotype-table td:first-child {
+  width: 2.2em;
+  color: var(--color-ink-faint);
+  font-family: var(--font-mono);
+  font-variant-numeric: tabular-nums;
+}
+.trait-cell {
+  display: inline-flex;
+  align-items: baseline;
+  gap: 0.05em;
+  cursor: help;
+}
+.trait-value {
+  font-family: var(--font-mono);
+  font-size: 0.82em;
+  color: var(--color-ink-muted);
+  margin-left: 0.35em;
+  white-space: nowrap;
+}
+.trait-sig {
+  color: var(--color-accent-ink);
+  font-size: 0.75em;
+  margin-left: 0.1em;
+}

@@ -1,0 +1,265 @@
+/* =========================================================================
+   layout.css — page shell, header/footer chrome, TOC sidebar, article grid
+   ========================================================================= */
+
+/* ---- Site header / footer -------------------------------------------- */
+.site-header {
+  border-bottom: 1px solid var(--color-border);
+  background: var(--color-bg);
+}
+.site-header-inner {
+  max-width: var(--page-max-width);
+  margin: 0 auto;
+  padding: var(--space-3) var(--gutter);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--space-3);
+  flex-wrap: wrap;
+}
+.site-title {
+  font-family: var(--font-sans);
+  font-weight: 600;
+  font-size: 0.95rem;
+  letter-spacing: 0.01em;
+  color: var(--color-ink);
+  text-decoration: none;
+}
+.site-nav {
+  display: flex;
+  gap: var(--space-4);
+  font-size: 0.9rem;
+}
+.site-nav a {
+  color: var(--color-ink-muted);
+  text-decoration: none;
+  padding-bottom: 2px;
+  border-bottom: 2px solid transparent;
+}
+.site-nav a:hover,
+.site-nav a[aria-current="page"] {
+  color: var(--color-ink);
+  border-bottom-color: var(--color-accent);
+}
+.theme-toggle {
+  border: 1px solid var(--color-border-strong);
+  background: var(--color-bg-raised);
+  color: var(--color-ink);
+  border-radius: var(--radius-md);
+  padding: var(--space-1) var(--space-2);
+  cursor: pointer;
+  font-size: 0.85rem;
+}
+
+.site-footer {
+  border-top: 1px solid var(--color-border);
+  margin-top: var(--space-6);
+  padding: var(--space-4) var(--gutter);
+  color: var(--color-ink-muted);
+  font-size: 0.85rem;
+  text-align: center;
+}
+.site-footer a { color: var(--color-ink-muted); }
+
+/* ---- Page shell / TOC sidebar ----------------------------------------
+   Flexbox handles TOC placement as a real sticky sidebar (not a hack).
+   Sidenote placement, below, uses a different technique (float into
+   reserved padding) because it needs per-paragraph vertical alignment
+   that flex/grid can't give without JS. */
+.page-shell {
+  max-width: var(--page-max-width);
+  margin: 0 auto;
+  padding: var(--space-5) var(--gutter) var(--space-6);
+  display: flex;
+  gap: var(--space-5);
+  align-items: flex-start;
+}
+
+.toc {
+  flex: 0 0 var(--toc-width);
+  position: sticky;
+  top: var(--space-4);
+  max-height: calc(100vh - 2 * var(--space-4));
+  overflow-y: auto;
+  border: none;
+}
+.toc summary {
+  display: none; /* shown only on narrow viewports, see media query below */
+}
+.toc-list, .toc-list ul {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+.toc-list ul { padding-left: var(--space-3); }
+.toc-list a {
+  display: block;
+  padding: var(--space-1) 0;
+  color: var(--color-ink-faint);
+  text-decoration: none;
+  font-size: 0.85rem;
+  line-height: 1.4;
+  border-left: 2px solid transparent;
+  padding-left: var(--space-2);
+}
+.toc-list a:hover { color: var(--color-ink); }
+.toc-list a.active {
+  color: var(--color-accent);
+  border-left-color: var(--color-accent);
+  font-weight: 600;
+}
+.toc-label {
+  font-size: 0.75rem;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  color: var(--color-ink-faint);
+  margin: 0 0 var(--space-2);
+}
+
+.article-body-wrap { flex: 1 1 auto; min-width: 0; }
+
+/* ---- Article header (title / byline / abstract) ----------------------- */
+.article-header { max-width: var(--content-max-width); margin: 0 auto var(--space-5); }
+.article-header h1 { margin-top: 0; font-size: 2.6rem; }
+.byline {
+  font-family: var(--font-sans);
+  font-size: 0.92rem;
+  color: var(--color-ink-muted);
+  margin-bottom: var(--space-4);
+}
+.byline .author { color: var(--color-ink); font-weight: 600; }
+.byline .affiliation { color: var(--color-ink-faint); }
+.abstract {
+  background: var(--color-bg-raised);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-md);
+  padding: var(--space-4);
+  font-size: 0.98rem;
+}
+.abstract-label {
+  font-family: var(--font-sans);
+  font-size: 0.75rem;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  color: var(--color-accent);
+  margin-bottom: var(--space-2);
+}
+
+/* ---- Article body + margin notes --------------------------------------
+   article-body's own box reserves padding-right for the sidenote column;
+   sidenotes float into that padding (Tufte-CSS technique) so each note
+   lines up with the paragraph that references it, with no JS needed. */
+.article-body {
+  max-width: calc(var(--content-max-width) + var(--sidenote-width) + var(--space-4));
+  padding-right: calc(var(--sidenote-width) + var(--space-4));
+  margin: 0 auto;
+}
+.article-body > * { max-width: var(--content-max-width); }
+
+.sidenote-number {
+  cursor: help;
+  color: var(--color-accent);
+}
+.sidenote-number::after {
+  content: counter(sidenote);
+  counter-increment: sidenote;
+  vertical-align: super;
+  font-size: 0.7em;
+  font-family: var(--font-sans);
+  margin-left: 1px;
+}
+.article-body { counter-reset: sidenote; }
+
+.sidenote {
+  float: right;
+  clear: right;
+  width: var(--sidenote-width);
+  max-width: var(--sidenote-width);
+  margin-right: calc(-1 * (var(--sidenote-width) + var(--space-4)));
+  margin-top: 0.1em;
+  font-family: var(--font-sans);
+  font-size: 0.82rem;
+  line-height: 1.5;
+  color: var(--color-ink-muted);
+}
+.sidenote::before {
+  content: counter(sidenote) ". ";
+  font-weight: 600;
+  color: var(--color-accent);
+}
+
+/* ---- Figures / widget containers --------------------------------------- */
+figure.widget, figure.figure {
+  max-width: none;
+  width: 100%;
+  margin: var(--space-5) 0;
+  background: var(--color-bg-raised);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-md);
+  padding: var(--space-4);
+  box-shadow: var(--shadow-card);
+}
+figure.figure.full-bleed,
+figure.widget.full-bleed {
+  width: calc(100% + var(--sidenote-width) + var(--space-4));
+}
+figcaption {
+  margin-top: var(--space-3);
+  font-size: 0.85rem;
+  color: var(--color-ink-muted);
+}
+figcaption .fig-number { color: var(--color-ink); font-weight: 600; }
+
+/* ---- References / appendix --------------------------------------------- */
+.references ol { padding-left: 1.4rem; font-size: 0.92rem; }
+.references li { margin-bottom: var(--space-2); }
+.references a { word-break: break-word; }
+
+/* ---- Responsive: collapse TOC + sidenotes below ~1150px ---------------- */
+@media (max-width: 1150px) {
+  .page-shell { display: block; padding-top: var(--space-4); }
+  .toc {
+    position: static;
+    max-height: none;
+    width: 100%;
+    margin-bottom: var(--space-4);
+    border: 1px solid var(--color-border);
+    border-radius: var(--radius-md);
+    padding: var(--space-2) var(--space-3);
+  }
+  .toc summary {
+    display: block;
+    cursor: pointer;
+    font-family: var(--font-sans);
+    font-weight: 600;
+    font-size: 0.85rem;
+    padding: var(--space-1) 0;
+  }
+  .toc[open] summary { margin-bottom: var(--space-2); }
+
+  .article-body {
+    max-width: var(--content-max-width);
+    padding-right: 0;
+    margin: 0 auto;
+  }
+  .sidenote {
+    float: none;
+    clear: both;
+    width: auto;
+    max-width: none;
+    display: block;
+    margin: var(--space-2) 0 var(--space-3);
+    padding: var(--space-2) var(--space-3);
+    background: var(--color-bg-raised);
+    border-left: 3px solid var(--color-accent);
+    border-radius: 0 var(--radius-sm) var(--radius-sm) 0;
+  }
+  figure.widget.full-bleed,
+  figure.figure.full-bleed { width: 100%; }
+}
+
+@media (max-width: 640px) {
+  html { font-size: 17px; }
+  .article-header h1 { font-size: 1.9rem; }
+  .page-shell { padding-left: var(--space-3); padding-right: var(--space-3); }
+}

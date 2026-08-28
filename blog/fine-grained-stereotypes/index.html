@@ -1,0 +1,392 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Blog - Stereotype Probes</title>
+  <meta name="description" content="[One-sentence summary of the paper/method for search engines and social previews.]" />
+
+  <!-- Open Graph / social preview — update before publishing -->
+  <meta property="og:title" content="Probing Fine-Grained Stereotypes and Trait Structure in Large Language
+Models" />
+  <meta property="og:description" content="[One-sentence summary of the paper/method.]" />
+  <meta property="og:type" content="article" />
+  <meta property="og:image" content="./assets/img/social-preview.png" />
+
+  <link rel="icon" href="data:," />
+
+  <!-- Optional: swap the system-font fallback in tokens.css for these by
+       uncommenting. Left off by default so the page has zero external
+       requests until you decide you want them. -->
+  <!--
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;600&family=IBM+Plex+Sans:wght@400;500;600&family=Source+Serif+4:opsz,wght@8..60,400;8..60,600&display=swap" rel="stylesheet">
+  -->
+
+  <!-- KaTeX for math typesetting -->
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.css"
+        integrity="sha384-nB0miv6/jRmo5UMMR1wu3Gz6NLsoTkbqJghGIsx//Rlm+ZU03BU6SQNC66uf4l5+" crossorigin="anonymous">
+
+  <link rel="stylesheet" href="./assets/css/tokens.css" />
+  <link rel="stylesheet" href="./assets/css/base.css" />
+  <link rel="stylesheet" href="./assets/css/layout.css" />
+  <link rel="stylesheet" href="./assets/css/components.css" />
+
+  <!-- Widget library for the RQ2 EFA figure — page-scoped, not sitewide. -->
+  <script src="https://cdn.plot.ly/plotly-2.35.2.min.js" charset="utf-8"></script>
+</head>
+<body>
+  <a class="skip-link" href="#main">Skip to content</a>
+
+  <site-header root="./" current="index"></site-header>
+
+  <main id="main">
+    <article class="article">
+      <header class="article-header">
+        <span class="badge">EMNLP 2026 Findings</span>
+        <h1>Probing Fine-Grained Stereotypes and Trait Structure in Large Language Models</h1>
+
+        <p class="byline">
+          <span class="author">Rebecca Yu</span><sup>1*</sup>,
+          <span class="author">Nicholas Deas</span><sup>1*</sup>,
+          <span class="author">Colin Wayne Leach</span><sup>2</sup>,
+          <span class="author">Kathleen McKeown</span><sup>1</sup>
+          &nbsp;
+          <br>
+          <span class="affiliation"><sup>1</sup> Columbia University, Department of Computer Science</span>
+          &nbsp;
+          <br>
+          <span class="affiliation"><sup>2</sup> Barnard College, Department of Psychology</span>
+          &nbsp;
+          <br>
+          <span class="affiliation"><sup>*</sup><em> Equal Contribution</em></span>
+          &nbsp;
+          <br>
+          <a href="#">[Paper PDF]</a> ·
+          <a href="#">[Code]</a> ·
+          <a href="#citation">[BibTeX]</a>
+        </p>
+
+        <div class="abstract">
+          <div class="abstract-label">Abstract</div>
+          <p>
+In this work, we study fine-grained stereotypes of LLMs activated by linguistic features representing demographic groups. 
+We first develop a probe-based framework to extract 235 unique traits (e.g., <em>friendly</em>, <em>uneducated</em>, <em>honest</em>) from model representations of prompts, enabling analyses of associations between traits and text. 
+Using these probes, we conduct two studies analyzing the underlying structure of traits and the specific stereotypes of demographic groups. We find that fine-grained trait information is represented in LLMs similarly to coarse-grained stereotype content dimensions (e.g., warmth and competence). 
+Despite treating traits as independent, we find that the fundamental dimensions of traits (<em>morality</em>, <em>competence</em>, and <em>sociability</em>) in LLMs largely align with those of psychology literature (<a href="#ref-fiske">Fiske, 2018</a>) Finally, we extract granular stereotypes race and gender stereotypes from models including, harmful stereotypes of Black people as <em>criminal</em> or <em>unintelligent</em>. 
+Overall, we discuss the need to consider fine-grained traits in stereotype evaluations in order to distinguish stereotypes of out-groups and between models. 
+We will make code and data available upon publication.
+          </p>
+        </div>
+      </header>
+
+      <div class="page-shell">
+        <details class="toc" open>
+          <summary>Contents</summary>
+          <p class="toc-label">On this page</p>
+          <nav id="toc-list" class="toc-list" aria-label="Table of contents"></nav>
+        </details>
+
+        <div class="article-body-wrap">
+          <div class="article-body">
+
+            <h2 id="introduction">Introduction</h2>
+            <p>
+              Stereotypes have received significant attention in the computational linguistics community. 
+              Through a variety of methods, these studies have considered the harmful associations LLMs form between concepts and various social groups. 
+              For example, in producing descriptions, LLMs associate Black women with beauty but also strength and resilience which reinforce the harmful stereotype of the "Strong Black Woman" (<a href="ref-cheng">Cheng et al., 2023</a>; <a href="ref-woods">Woods-Giscombé, 2010</a>).
+            </p>
+
+            
+            <p>
+              We seek to answer the following research questions:
+            </p>
+            <div class="callout">
+              <div class="callout-title"><a href="#rq1">Research Question 1</a></div>
+              <p>
+                How strongly are fine-grained traits encoded in LLM hidden representations?
+              </p>
+            </div>
+
+            We find that finegrained traits (e.g., hostility, studiousness) are linearly decodable from model hidden representations with similar reliability to that of coarse-grained dimensions (e.g., warmth, competence).
+
+            <div class="callout">
+              <div class="callout-title"><a href="#rq2">Research Question 2</a></div>
+              <p>
+                What is the semantic structure of traits that LLMs associate with language patterns? 
+              </p>
+            </div>
+
+            Via exploratory factor analyses, a common method in psychological literature, we examine the structure among traits in model hidden representations; 
+            we find that the structure of traits according to LLMs closely resembles existing psychological models of human stereotype content. 
+            Importantly, we also find that fine-grained traits are necessary for capturing granular stereotypes given the variance left unexplained by these factors.
+
+            <div class="callout">
+              <div class="callout-title"><a href="#rq3">Research Question 3</a></div>
+              <p>
+                what stereotypes surface from LLMs’ associations between traits and linguistic features associated with demographic groups?
+              </p>
+            </div>
+            Using real data representing different demographic groups, we study the traits LLMs associate with those groups to characterize fine-grained stereotypes. 
+            We see that, for example, LLMs associate AAL with traits like criminal, and unintelligent, and texts written by women as submissive, and tender, both of which align with specific so-cietal stereotypes of these groups. 
+            We also see, however, that trait-level stereotypes vary across models, suggesting that mitigating these stereotypes may require model-specific interventions.
+
+            <h2 id="rq1">RQ1) Developing Trait Probes</h2>
+            <p>
+            </p>
+
+              To developed probes for individual traits, we geneally follow <a href="#ref-deas">Deas et al., (2025)</a> with several modifications.
+
+              <h3 id="rq1-method">Method</h3>
+
+              <figure class="widget full-bleed">
+                <video class="widget-canvas" style="display:block; width:100%; height:auto;"
+                       src="./assets/probe_animation.mp4" autoplay muted loop playsinline preload="auto"></video>
+                <figcaption><span class="fig-number">Figure 1.</span> Summary of the methodology for developing fine-grained trait probes. 
+                  First, we (1) generate a large set of synthetic messages conditioned on pairs of stereotype content traits. We then (2) sample negative examples using traits with opposite valence and use these paired sets to train individual probes for each trait across model layers. </figcaption>
+              </figure>
+
+              <p>
+                <h4>Traits. </h4>
+
+                <h4>Data Generation. </h4>
+
+                <h4>Trait Probes. </h4>
+              </p>
+
+              <h3 id="rq1-results">Results</h3>
+              <p>
+                Probe performance varies widely across the 235 traits. Figure 1 shows
+                the seven traits with the lowest peak-layer F1 and the seven with the
+                highest for Llama-3.2, each taken at whichever layer scored that trait
+                best — the hardest traits to probe skew toward fine-grained
+                <em>assertiveness</em>/<em>ability</em> distinctions (e.g. <em>dominated</em>,
+                <em>unable</em>), while the easiest are salient, high-frequency
+                sociability/morality words (e.g. <em>funny</em>, <em>vicious</em>).
+              </p>
+
+              <figure class="widget full-bleed">
+                <div class="segmented-control" id="trait-performance-llama-control" role="tablist" aria-label="Select trait view">
+                  <span class="segmented-thumb" id="trait-performance-llama-thumb" aria-hidden="true"></span>
+                  <button class="segmented-btn is-active" data-mode="topBottom" role="tab" aria-selected="true" type="button">
+                    <span class="segmented-title">Top/bottom 7</span>
+                  </button>
+                  <button class="segmented-btn" data-mode="all" role="tab" aria-selected="false" type="button">
+                    <span class="segmented-title">All 235 traits</span>
+                  </button>
+                </div>
+                <div id="trait-performance-llama-canvas" class="widget-canvas" style="min-height: 420px;"></div>
+                <div class="segmented-control" id="trait-performance-llama-model-control" role="tablist" aria-label="Select model">
+                  <span class="segmented-thumb" id="trait-performance-llama-model-thumb" aria-hidden="true"></span>
+                  <button class="segmented-btn is-active" data-model="llama-3.2" role="tab" aria-selected="true" type="button">
+                    <span class="segmented-title">Llama-3.2</span>
+                  </button>
+                  <button class="segmented-btn" data-model="gemma-3" role="tab" aria-selected="false" type="button">
+                    <span class="segmented-title">Gemma-3</span>
+                  </button>
+                  <button class="segmented-btn" data-model="olmo-2" role="tab" aria-selected="false" type="button">
+                    <span class="segmented-title">OLMo-2</span>
+                  </button>
+                </div>
+                <figcaption><span class="fig-number">Figure 1.</span> Peak probe F1 score for Llama-3.2-1B-Instruct on held-out validation data.
+                  Traits are sorted by decreasing peak F1 and 95% CIs are displayed as error bars.
+                  Hover over any bar for the exact trait, valence, F1 ± CI, and layer.</figcaption>
+              </figure>
+
+            <h2 id="rq2">RQ2) Characterizing Trait Space Structure</h2>
+            <p>
+            </p>
+
+              <h3 id="rq2-method">Method</h3>
+              <p>
+
+                In order to assess the structure of each model's trait space(<a href="#ref-stolier">Stolier et al., 2018</a>)--that is, the structural relationships between traits--we use <em>exploratory factor analysis</em>, a common approach in psychology to surfacing the underlying structure among sets of variables.
+                EFA is conducted on the raw probe predictions on the training data used for each probe<label class="sidenote-number" tabindex="0"></label>
+                <span class="sidenote">In the results, although noisier/less-pronounced, similar factors appear for held-out data from LMSysChat. We use probe training data here because each individual trait has relatively low representation, mitigating leakage impacts, and to ensure we capture the models' intrinsic structure.</span>.
+                <br><br>
+                Specifically, we fit a three-factor EFA with oblimin rotation<label class="sidenote-number" tabindex="0"></label>
+                <span class="sidenote">EFA involves selection of a particular rotation method, which determines how the factors relate to each other under the provided data. 
+                  Oblimin is a method which--unlike PCA--does not enforce orthogonal factors and allows the factors to correlate with each other.</span>. 
+                  If models encode traits similarly to patterns we see in human studies, these three factors are expected to correspond to morality, competence, and sociability (<a href="#ref-sayans">Sayans-Jiménez et al., 2018</a>).
+              </p>
+
+              <h3 id="rq2-results">Results</h3>
+              <p>
+                Correlations among a subset of traits for Llama-3.2-1B are shown in <a href="#trait-network-gemma-canvas">Figure 2</a>.
+                Many expected relationships are present within this subet.
+                For example, <em>homophobic</em>, <em>racist</em>, and <em>unfair</em> are all highly positively correlated.
+                In contrast, traits like <em>graceful</em> are negatively correlated with others like <em>rough</em> or <em>ignorant</em>.
+                At a higher-level, we see that traits within each stereotype content dimension are more strongly inter-related than other trait pairs, and similarly for the coarse grained warmth (sociability, morality) and competence (ability, assertiveness) categories.
+                To summarize these patterns at a broader scale, we then examine the results of the EFA.
+              </p>
+
+              <figure class="widget full-bleed">
+                <div class="range-control">
+                  <span class="range-meta" id="trait-network-gemma-edge-count"></span>
+                </div>
+                <div id="trait-network-gemma-canvas" class="widget-canvas" style="min-height: 560px;"></div>
+                <div class="chart-legend">
+                  <span class="legend-item"><span class="legend-swatch" style="background:#2a78d6;"></span>Sociability</span>
+                  <span class="legend-item"><span class="legend-swatch" style="background:#eda100;"></span>Morality</span>
+                  <span class="legend-item"><span class="legend-swatch" style="background:#e87ba4;"></span>Assertiveness</span>
+                  <span class="legend-item"><span class="legend-swatch" style="background:#008300;"></span>Ability</span>
+                  <span class="legend-item"><span class="legend-line" style="border-top-color:#009E73;"></span>Positive correlation</span>
+                  <span class="legend-item"><span class="legend-line is-dashed" style="border-top-color:#D55E00;"></span>Negative correlation</span>
+                </div>
+                <figcaption><span class="fig-number">Figure 2.</span> Example network of trait correlations for a subset of 24 traits (3 for each combination of valence and dictionary).
+                  Edges represent correlation between raw probe outputs on LLM-generated texts, and thicknesses correspond to the correlation strength. 
+                  Only the top 5 edges are shown for each node/trait.
+                </figcaption>
+              </figure>
+
+              <p>
+                The loadings for each trait onto each surfaced EFA factor are shown in <a href="#efa-llama-canvas">Figure 3</a>.
+                In examining which traits lie at the extremes for each factor, we can qualitatively assess what the underlying factor likely represents.
+                In this case, the three underlying factors appear to match expectations based on psychological literature (<a href="#ref-fiske">Fiske et al., 2018</a>).
+                <strong style="color:red">TODO: Include discussion of variance explained</strong>
+              </p>
+
+              <figure class="widget full-bleed">
+                <div class="segmented-control" id="efa-llama-control" role="tablist" aria-label="Select EFA factor to display">
+                  <span class="segmented-thumb" id="efa-llama-thumb" aria-hidden="true"></span>
+                  <button class="segmented-btn is-active" data-factor="0" role="tab" aria-selected="true" type="button">
+                    <span class="segmented-title">Factor 1</span><span class="segmented-sub">Morality</span>
+                  </button>
+                  <button class="segmented-btn" data-factor="1" role="tab" aria-selected="false" type="button">
+                    <span class="segmented-title">Factor 2</span><span class="segmented-sub">Competence</span>
+                  </button>
+                  <button class="segmented-btn" data-factor="2" role="tab" aria-selected="false" type="button">
+                    <span class="segmented-title">Factor 3</span><span class="segmented-sub">Sociability</span>
+                  </button>
+                </div>
+                <div id="efa-llama-canvas" class="widget-canvas" style="min-height: 480px;"></div>
+                <div class="segmented-control" id="efa-llama-model-control" role="tablist" aria-label="Select model">
+                  <span class="segmented-thumb" id="efa-llama-model-thumb" aria-hidden="true"></span>
+                  <button class="segmented-btn is-active" data-model="llama-3.2" role="tab" aria-selected="true" type="button">
+                    <span class="segmented-title">Llama-3.2</span>
+                  </button>
+                  <button class="segmented-btn" data-model="gemma-3" role="tab" aria-selected="false" type="button">
+                    <span class="segmented-title">Gemma-3</span>
+                  </button>
+                  <button class="segmented-btn" data-model="olmo-2" role="tab" aria-selected="false" type="button">
+                    <span class="segmented-title">OLMo-2</span>
+                  </button>
+                </div>
+                <figcaption><span class="fig-number">Figure 2.</span> Loadings of the 235 traits onto each of the three EFA factors for Llama-3.2-1B-Instruct. 
+                  Marker shape represents the original stereotype content dimension of thet trait, while color represents the valence. 
+                  Hover over any point for the exact trait and loading. 10 traits are labeled and fixed across factors for comparison.</figcaption>
+              </figure>
+
+            <h2 id="rq3">RQ3) Characterizing Fine-Grained Stereotypes</h2>
+            <p>
+            </p>
+
+              <h3 id="rq3-method">Method</h3>
+              <p>
+              </p>
+
+              <h3 id="rq3-results">Results</h3>
+              <p>
+              </p>
+
+            <figure class="widget full-bleed">
+              <div class="segmented-control" id="stereotype-table-llama-control" role="tablist" aria-label="Select stereotype-table controls">
+                <span class="segmented-thumb" id="stereotype-table-llama-thumb" aria-hidden="true"></span>
+                <button class="segmented-btn is-active" data-condition="original" role="tab" aria-selected="true" type="button">
+                  <span class="segmented-title">Original</span>
+                </button>
+                <button class="segmented-btn" data-condition="length_source" role="tab" aria-selected="false" type="button">
+                  <span class="segmented-title">Length + source residualized</span>
+                </button>
+                <button class="segmented-btn" data-condition="combined" role="tab" aria-selected="false" type="button">
+                  <span class="segmented-title">All controls residualized</span>
+                </button>
+              </div>
+              <div id="stereotype-table-llama" class="widget-canvas" data-control="stereotype-table-llama-control" data-model-control="stereotype-table-llama-model-control" style="padding: var(--space-3) var(--space-4);"></div>
+              <div class="chart-legend">
+                <span class="legend-item"><span class="legend-swatch" style="background:#2a78d6;"></span>Sociability</span>
+                <span class="legend-item"><span class="legend-swatch" style="background:#eda100;"></span>Morality</span>
+                <span class="legend-item"><span class="legend-swatch" style="background:#e87ba4;"></span>Assertiveness</span>
+                <span class="legend-item"><span class="legend-swatch" style="background:#008300;"></span>Ability</span>
+              </div>
+              <div class="segmented-control" id="stereotype-table-llama-model-control" role="tablist" aria-label="Select model">
+                <span class="segmented-thumb" id="stereotype-table-llama-model-thumb" aria-hidden="true"></span>
+                <button class="segmented-btn is-active" data-model="llama-3.2" role="tab" aria-selected="true" type="button">
+                  <span class="segmented-title">Llama-3.2</span>
+                </button>
+                <button class="segmented-btn" data-model="gemma-3" role="tab" aria-selected="false" type="button">
+                  <span class="segmented-title">Gemma-3</span>
+                </button>
+                <button class="segmented-btn" data-model="olmo-2" role="tab" aria-selected="false" type="button">
+                  <span class="segmented-title">OLMo-2</span>
+                </button>
+              </div>
+              <figcaption><span class="fig-number">Figure 3.</span> Top- and bottom-ten traits associated with texts written by each indicated group. 
+                "Original" trait rankings show effect sizes from Mann-Whitney U tests for that group compared to all others with no controls. 
+                Values in parentheses for "Length + source residualized" and "All controls residualized" show the resulting coefficient of the regression when length/text source are included and when lexical assymetry is added respectively.
+                <br>
+                For "Original", significance is assessed with FDR-corrections: <sup>*</sup><em>p &lte; .05</em>, <sup>**</sup><em>p &lt; .01</em>, <sup>***</sup><em>p &lt; .001</em>
+              </figcaption>
+            </figure>
+
+            <h2 id="discussion">Conclusion &amp; Limitations</h2>
+            <p></p>
+
+            <h2 id="citation">Citation</h2>
+            <p>For attribution, please cite this work as:</p>
+            <div class="citation-box">
+              <button class="copy-btn" type="button" data-copy-target="citation-text">Copy</button>
+              <pre id="citation-text" class="wrap"><code>Rebecca Yu, Nicholas Deas, Colin Wayne Leach, and Kathleen McKeown. 2026. <a href="#">Probing Fine-Grained Stereotypes and Trait Structure in Large Language Models.</a> In Proceedings of the 2026 Conference on Empirical Methods in Natural Language Processing, pages X-X, Budapest, Hungary. Association for Computational Linguistics.</code></pre>
+            </div>
+            <div class="citation-box">
+              <button class="copy-btn" type="button" data-copy-target="citation-bibtex">Copy</button>
+              <pre id="citation-bibtex"><code>@article{[citekey],
+  title   = {[Paper Title]},
+  author  = {[Author One and Author Two and Author Three]},
+  year    = {[Year]},
+  journal = {[Venue / arXiv]},
+  url     = {[URL]}
+}</code></pre>
+            </div>
+
+            <section class="references" aria-label="References">
+              <h2 id="references">References</h2>
+              <ol>
+                <li id="ref-deas">Nicholas Deas and Kathleen McKeown. 2025. <a href="https://aclanthology.org/2025.emnlp-main.981/">Artificial Impressions: Evaluating Large Language Model Behavior Through the Lens of Trait Impressions.</a> In <em>Proceedings of the 2025 Conference on Empirical Methods in Natural Language Processing</em>, pages 19418–19444, Suzhou, China. Association for Computational Linguistics.</li>
+                <li id="ref-fiske">Susan T. Fiske. 2018. <a href="https://journals.sagepub.com/doi/10.1177/0963721417738825">Stereotype Content: Warmth and Competence Endure.</a> <em>Current Directions in Psychological Science.</em></li>
+                <li id="ref-stolier">Ryan M Stolier, Eric Hehman, Matthias D Keller, Mirella Walker, and Jonathan B Freeman. 2018. <a href="10.1073/pnas.1807222115">The conceptual structure of face impressions.</a> <em>Proceedings of the National Academy of Sciences</em>, 115(37):9210–9215.</li>
+                <li id="ref-sayans">Pablo Sayans-Jiménez, Frenk van Harreveld, Jonas Dalege, and Antonio J. Rojas Tejada. 2018. <a href="https://doi.org/10.1002/ejsp.2505">Investigating stereotype structure with empirical network models.</a> <em>European Journal of Social Psychology, 49(3)</em>:604–621.</li>
+                <li id="ref-sayans">Myra Cheng, Esin Durmus, and Dan Jurafsky. 2023. <a href="https://aclanthology.org/2023.acl-long.84/">Marked personas: Using natural language prompts to measure stereotypes in language models.</a> In <em>Proceedings of the 61st Annual Meeting of the Association for
+Computational Linguistics (Volume 1: Long Papers)</em>, pages 1504–1532, Toronto, Canada. Association for Computational Linguistics.</li>
+                <li id="ref-sayans">Cheryl L. Woods-Giscombé. 2010. <a href="https://doi.org/10.1177/1049732310361892">Superwoman schema: African american women’s views on stress, strength, and health.</a> <em>Qualitative Health Research, 20(5)</em>:668–683.</li>
+              </ol>
+            </section>
+
+          </div>
+        </div>
+      </div>
+    </article>
+  </main>
+
+  <site-footer root="./"></site-footer>
+
+  <script defer src="./assets/js/shared-chrome.js"></script>
+  <script defer src="./assets/js/toc.js"></script>
+  <script defer src="./assets/js/copy-blocks.js"></script>
+  <script defer src="./assets/js/widgets/trait-network-gemma.js"></script>
+  <script defer src="./assets/js/widgets/efa-llama.js"></script>
+  <script defer src="./assets/js/widgets/trait-performance-llama.js"></script>
+  <script defer src="./assets/js/widgets/stereotype-table-llama.js"></script>
+
+  <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.js"
+          integrity="sha384-XjKyOOlGwcjNTAIQHIpgOno0Hl1YQqzUOEleOLALmuqehneUG+vnGctmUb0ZY0l8" crossorigin="anonymous"></script>
+  <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/contrib/auto-render.min.js"
+          integrity="sha384-+VBxd3r6XgURycqtZ117nYw44OOcIax56Z4dCRWbxyPt0Koah1uHoK0o4+/RRE05" crossorigin="anonymous"
+          onload="renderMathInElement(document.body, {delimiters: [
+            {left: '$$', right: '$$', display: true},
+            {left: '\\[', right: '\\]', display: true},
+            {left: '\\(', right: '\\)', display: false}
+          ]});"></script>
+</body>
+</html>
